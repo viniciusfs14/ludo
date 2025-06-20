@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa Corrida Especial</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="board"></div>
+
+        <img src="pics/ela.jpeg" class="avatar" id="player-avatar" alt="Avatar Jogadora">
+        <img src="pics/ele.jpg" class="avatar" id="bot-avatar" alt="Avatar Bot">
+
+        <div class="pawn player-red" id="love-pawn"></div>
+        <div class="pawn player-blue" id="bot-pawn"></div>
+    </div>
+
+    <div id="controls">
+        <h2 id="main-title">Sua vez de jogar!</h2>
+        <div id="dice-container">
+            <div id="dice">❤️</div>
+        </div>
+        <button id="roll-button">Lançar Dado</button>
+        <div id="love-message">-</div>
+    </div>
+
+    <audio id="dice-roll-sound" src="roll.mp3" preload="auto"></audio>
+    <audio id="pawn-move-sound" src="move.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
