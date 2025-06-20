@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+
 :root {
     --board-size: 95vw;
     --max-board-size: 500px;
@@ -32,7 +34,6 @@ body {
     aspect-ratio: 1 / 1;
 }
 
-
 #board {
     width: 100%;
     height: 100%;
@@ -44,7 +45,7 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.1);
 }
 
-.cell { border: 1px solid #eee; }
+.cell { border: 1px solid #dcdcdc; }
 
 .base { 
     grid-column: span 6; 
@@ -70,11 +71,9 @@ body {
 .base.blue { grid-area: 10 / 10 / 16 / 16; background-color: var(--color-blue); }
 .base.yellow { grid-area: 10 / 1 / 16 / 7; background-color: var(--color-yellow); }
 
-
 .path-cell { background-color: #f8f8f8; }
 .start-cell.red { background-color: var(--color-red); }
 .start-cell.blue { background-color: var(--color-blue); }
-
 .home-stretch.red { background-color: var(--color-red-light); }
 .home-stretch.blue { background-color: var(--color-blue-light); }
 
@@ -105,22 +104,13 @@ body {
     z-index: 5;
     transition: all 0.3s ease-in-out;
 }
-
 .avatar.active-turn {
-    border-color: #f1c40f;
+    border-color: #FFD700;
     transform: scale(1.05);
-    box-shadow: 0 0 25px #f1c40f;
+    box-shadow: 0 0 25px #FFD700;
 }
-
-#player-avatar {
-    top: 10%;
-    left: 10%;
-}
-
-#bot-avatar {
-    bottom: 10%;
-    right: 10%;
-}
+#player-avatar { top: 10%; left: 10%; }
+#bot-avatar { bottom: 10%; right: 10%; }
 
 .pawn {
     position: absolute;
@@ -140,12 +130,8 @@ body {
     50%  { transform: translateY(-60%) scale(1.1); }
     100% { transform: translateY(0) scale(1); }
 }
-.player-red { 
-    background: radial-gradient(circle at 50% 30%, var(--color-red-light), var(--color-red)); 
-}
-.player-blue { 
-    background: radial-gradient(circle at 50% 30%, var(--color-blue-light), var(--color-blue));
-}
+.player-red { background: radial-gradient(circle at 50% 30%, var(--color-red-light), var(--color-red)); }
+.player-blue { background: radial-gradient(circle at 50% 30%, var(--color-blue-light), var(--color-blue)); }
 
 #controls {
     margin-top: 20px;
@@ -209,4 +195,58 @@ body {
     font-weight: bold;
     min-height: 25px;
     transition: opacity 0.5s;
+}
+
+/* ESTILOS PARA O CARD DE VITÓRIA */
+#victory-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+#victory-card.visible {
+    display: flex;
+    opacity: 1;
+}
+
+.card-content {
+    background-color: #fffde7;
+    padding: 30px 40px;
+    border-radius: 10px;
+    max-width: 90%;
+    width: 450px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+    border: 1px solid #ddd;
+    transform: scale(0.7);
+    animation: popUp 0.8s 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+#victory-title {
+    font-family: 'Caveat', cursive;
+    font-size: 3em;
+    color: var(--color-red);
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+#victory-message {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8em;
+    line-height: 1.6;
+    color: #444;
+}
+
+@keyframes popUp {
+    0% { transform: scale(0.7); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
 }

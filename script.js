@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- ELEMENTOS E ESTADO DO JOGO ---
+    // --- ELEMENTOS DO JOGO ---
     const board = document.getElementById('board');
     const rollButton = document.getElementById('roll-button');
     const diceElement = document.getElementById('dice');
@@ -11,6 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const botAvatar = document.getElementById('bot-avatar');
     const diceRollSound = document.getElementById('dice-roll-sound');
     const pawnMoveSound = document.getElementById('pawn-move-sound');
+    const victoryCard = document.getElementById('victory-card');
+    const victoryMessage = document.getElementById('victory-message');
+    const victoryMusic = document.getElementById('victory-music');
+    
+    // --- PERSONALIZE SUA MENSAGEM FINAL AQUI ---
+    // --- PERSONALIZE SUA MENSAGEM FINAL AQUI ---
+    const finalLetterMessage = `Parabéns pela vitória, meu bem...
+    Fiz esse joguinho simples porque o Ludo sempre foi mais que um passatempo pra gente... é o nosso jeito de ficar juntinhos, de rir, brigar de brincadeira e criar memórias. Enquanto eu via esses peões andando, só conseguia pensar no quanto eu sinto falta de caminhar com você... de te ouvir me chamar de “meu bem”, de ter você perto.
+    Tem uma frase que o Soluço diz pra Astrid, em Como Treinar o Seu Dragão, que eu adaptei pra nós:
+    “Você sempre esteve lá quando eu precisei... então eu também quero estar por você...Eu te amo, Sara Cristina da Silva... com todo o meu coração. Sempre vou te amar.”
+    Com carinho,
+    Aquele que te escolheria em todas as vidas.`;
 
     const loveMessages = [
         "Um 6 da sorte abre os caminhos!", "A jornada te espera.", "Confie no seu dado.", "Cada passo te aproxima da vitória.", "Essa casa é segura, como meu abraço.", "Uau, um 6! Você merece jogar de novo!", "O bot está tentando, mas meu coração torce por você.", "Cuidado, não deixe ele te pegar!", "Uma jogada de mestre!", "Você tem uma proteção especial neste jogo.", "O final está cada vez mais perto."
@@ -65,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             const finalPosition = playerPosition + diceResult;
-
             if (finalPosition >= redPlayerPath.length) {
                 showMessage("Jogada inválida, precisa de um número exato!");
                 if (diceResult !== 6) passTurnToBot();
@@ -90,21 +101,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function handleBotTurn() {
-        isPlayerTurn = false;
-        titleElement.textContent = "Vez do oponente...";
+        isPlayerTurn = false;   
+        titleElement.textContent = "Vez do Vinicin...";
         playerAvatar.classList.remove('active-turn');
         botAvatar.classList.add('active-turn');
-
         await sleep(500);
 
         if (playerPosition > redPlayerPath.length - 12) {
-            showMessage("O bot sentiu a pressão e travou!");
+            showMessage("Vinicin viu o brilho nos olhinhos da Sara e ficou paralisado ao se apaixonar!");
             setTimeout(() => switchTurnToPlayer(false), 2000);
             return;
         }
 
         let diceResult = Math.floor(Math.random() * 6) + 1;
-
         if (botPosition === -1) {
             if (diceResult === 6) {
                 botPosition = 0;
@@ -195,12 +204,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function endTheJourney() {
-        titleElement.textContent = "VOCÊ VENCEU!";
-        showMessage("No seu coração encontrei meu lar. Te amo! ❤️");
-        botAvatar.classList.remove('active-turn');
-        playerAvatar.classList.add('active-turn');
-        rollButton.style.display = 'none';
-        diceElement.textContent = '💖';
+        document.getElementById('controls').style.display = 'none';
+        document.getElementById('game-container').style.transition = 'opacity 0.5s';
+        document.getElementById('game-container').style.opacity = '0';
+
+        victoryMessage.innerText = finalLetterMessage;
+        victoryCard.style.display = 'flex';
+        
+        setTimeout(() => {
+            victoryCard.classList.add('visible');
+            victoryMusic.play();
+        }, 100);
     }
     
     function setupBoard() {

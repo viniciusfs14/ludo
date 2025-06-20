@@ -1,8 +1,6 @@
 :root {
     --board-size: 95vw;
     --max-board-size: 500px;
-    
-    /* Paleta de Cores Clássicas */
     --color-red: #D82129;
     --color-red-light: #F19498;
     --color-blue: #0077C8;
@@ -34,6 +32,7 @@ body {
     aspect-ratio: 1 / 1;
 }
 
+
 #board {
     width: 100%;
     height: 100%;
@@ -45,7 +44,7 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2), inset 0 0 10px rgba(0,0,0,0.1);
 }
 
-.cell { border: 1px solid #dcdcdc; }
+.cell { border: 1px solid #eee; }
 
 .base { 
     grid-column: span 6; 
@@ -54,43 +53,28 @@ body {
 
 .home-area { 
     grid-column: 7 / 10; 
-    grid-row: 7 / 10; 
-    background: 
-        linear-gradient(45deg, var(--color-red) 50%, transparent 50.5%),
-        linear-gradient(135deg, var(--color-green) 50%, transparent 50.5%),
-        linear-gradient(225deg, var(--color-blue) 50%, transparent 50.5%),
-        linear-gradient(315deg, var(--color-yellow) 50%, transparent 50.5%);
+    grid-row: 7 / 10;
+    
+   
+    background: conic-gradient(
+        from -45deg, 
+        var(--color-green) 0 90deg,
+        var(--color-blue) 90deg 180deg,
+        var(--color-yellow) 180deg 270deg,
+        var(--color-red) 270deg 360deg
+    );
 }
 
-.base.red { 
-    grid-area: 1 / 1 / 7 / 7; 
-    background: 
-        radial-gradient(circle at center, white 80%, transparent 81%), 
-        var(--color-red-light);
-}
-.base.green { 
-    grid-area: 1 / 10 / 7 / 16; 
-    background: 
-        radial-gradient(circle at center, white 80%, transparent 81%), 
-        var(--color-green-light);
-}
-.base.blue { 
-    grid-area: 10 / 10 / 16 / 16; 
-    background: 
-        radial-gradient(circle at center, white 80%, transparent 81%), 
-        var(--color-blue-light);
-}
-.base.yellow { 
-    grid-area: 10 / 1 / 16 / 7; 
-    background: 
-        radial-gradient(circle at center, white 80%, transparent 81%), 
-        var(--color-yellow-light);
-}
+.base.red { grid-area: 1 / 1 / 7 / 7; background-color: var(--color-red); }
+.base.green { grid-area: 1 / 10 / 7 / 16; background-color: var(--color-green); }
+.base.blue { grid-area: 10 / 10 / 16 / 16; background-color: var(--color-blue); }
+.base.yellow { grid-area: 10 / 1 / 16 / 7; background-color: var(--color-yellow); }
 
 
 .path-cell { background-color: #f8f8f8; }
 .start-cell.red { background-color: var(--color-red); }
 .start-cell.blue { background-color: var(--color-blue); }
+
 .home-stretch.red { background-color: var(--color-red-light); }
 .home-stretch.blue { background-color: var(--color-blue-light); }
 
@@ -99,9 +83,14 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .safe-cell::after {
-    content: '🌟';
-    font-size: calc(var(--board-size) / 28);
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: calc(var(--board-size) / 100); 
     opacity: 0.6;
 }
 
@@ -116,13 +105,22 @@ body {
     z-index: 5;
     transition: all 0.3s ease-in-out;
 }
+
 .avatar.active-turn {
-    border-color: #FFD700;
+    border-color: #f1c40f;
     transform: scale(1.05);
-    box-shadow: 0 0 25px #FFD700;
+    box-shadow: 0 0 25px #f1c40f;
 }
-#player-avatar { top: 10%; left: 10%; }
-#bot-avatar { bottom: 10%; right: 10%; }
+
+#player-avatar {
+    top: 10%;
+    left: 10%;
+}
+
+#bot-avatar {
+    bottom: 10%;
+    right: 10%;
+}
 
 .pawn {
     position: absolute;
